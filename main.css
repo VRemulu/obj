@@ -1,0 +1,328 @@
+/* 电位显示系统样式 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 350px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    overflow-y: auto;
+}
+
+.sidebar h1 {
+    margin: 0 0 20px 0;
+    font-size: 24px;
+    font-weight: 300;
+    text-align: center;
+    border-bottom: 2px solid rgba(255,255,255,0.3);
+    padding-bottom: 15px;
+}
+
+.section {
+    margin-bottom: 25px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.section h3 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 8px;
+}
+
+.node-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+}
+
+.input-group input {
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.9);
+    color: #333;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    background: white;
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+.color-range {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.color-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.color-input label {
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: rgba(255,255,255,0.9);
+}
+
+.color-input input {
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.9);
+    color: #333;
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
+}
+
+.color-preview {
+    width: 100%;
+    height: 20px;
+    border-radius: 5px;
+    margin-top: 5px;
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+.red-preview {
+    background: linear-gradient(90deg, #ff4444, #ff6666);
+}
+
+.blue-preview {
+    background: linear-gradient(90deg, #4444ff, #6666ff);
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    color: white;
+    box-shadow: 0 4px 15px rgba(238, 90, 36, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(238, 90, 36, 0.4);
+}
+
+.btn-secondary {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.btn-secondary:hover {
+    background: rgba(255,255,255,0.3);
+    transform: translateY(-1px);
+}
+
+.file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+}
+
+.file-input-wrapper input[type=file] {
+    position: absolute;
+    left: -9999px;
+}
+
+.file-input-label {
+    display: block;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #10ac84, #00d2d3);
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.file-input-label:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 172, 132, 0.3);
+}
+
+.main-content {
+    flex: 1;
+    position: relative;
+    background: #f8f9fa;
+}
+
+#canvasContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#canvasContainer canvas {
+    display: block;
+    border-radius: 0;
+}
+
+.segment-list {
+    max-height: 300px;
+    overflow-y: auto;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.segment-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.segment-item:last-child {
+    border-bottom: none;
+}
+
+.segment-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    margin-right: 10px;
+    border: 2px solid rgba(255,255,255,0.3);
+    flex-shrink: 0;
+}
+
+.segment-name {
+    font-weight: 500;
+    flex: 1;
+    font-size: 14px;
+}
+
+.segment-range {
+    font-size: 12px;
+    color: rgba(255,255,255,0.8);
+    text-align: right;
+}
+
+#loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: 16px;
+    z-index: 1000;
+    display: none;
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 滚动条样式 */
+.sidebar::-webkit-scrollbar,
+.segment-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track,
+.segment-list::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.segment-list::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover,
+.segment-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.5);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 40vh;
+    }
+    
+    .node-inputs {
+        grid-template-columns: 1fr;
+    }
+    
+    .color-range {
+        grid-template-columns: 1fr;
+    }
+}
