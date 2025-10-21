@@ -16,32 +16,28 @@
                 <h3>节点电位值 (mV)</h3>
                 <div class="node-inputs">
                     <div class="input-group">
-                        <label>节点1:</label>
+                        <label>leg11:</label>
                         <input type="number" id="node1" value="-600" step="0.1">
                     </div>
                     <div class="input-group">
-                        <label>节点2:</label>
+                        <label>leg12:</label>
                         <input type="number" id="node2" value="-700" step="0.1">
                     </div>
                     <div class="input-group">
-                        <label>节点3:</label>
+                        <label>leg13:</label>
                         <input type="number" id="node3" value="-750" step="0.1">
                     </div>
                     <div class="input-group">
-                        <label>节点4:</label>
+                        <label>leg14:</label>
                         <input type="number" id="node4" value="-850" step="0.1">
                     </div>
                     <div class="input-group">
-                        <label>节点5:</label>
+                        <label>leg15:</label>
                         <input type="number" id="node5" value="-992.49" step="0.1">
                     </div>
                     <div class="input-group">
-                        <label>节点6:</label>
+                        <label>leg16:</label>
                         <input type="number" id="node6" value="-1015.9" step="0.1">
-                    </div>
-                    <div class="input-group">
-                        <label>节点7:</label>
-                        <input type="number" id="node7" value="-1200" step="0.1">
                     </div>
                 </div>
             </div>
@@ -67,22 +63,20 @@
             <div class="section">
                 <h3>控制操作</h3>
                 <div class="controls">
-                    <button class="btn btn-primary" onclick="updateColors()">应用电位颜色</button>
-                    <button class="btn btn-secondary" onclick="loadDefaultModel()">加载默认模型</button>
+                    <button class="btn btn-primary" onclick="updateColors()">应用电位颜色</button>                 
                     <button class="btn btn-secondary" onclick="resetView()">重置视角</button>
-                    <button class="btn btn-secondary" onclick="toggleWireframe()">切换线框</button>
-                    <button class="btn btn-secondary" onclick="inspectModel()">遍历结构</button>
+                    <button class="btn btn-info" onclick="toggleNodeIndicators()">切换节点指示器</button>
                 </div>
             </div>
 
-            <!-- 文件加载 -->
-            <div class="section">
+    
+            <!-- <div class="section">
                 <h3>模型文件</h3>
                 <div class="file-input-wrapper">
                     <input type="file" id="fileInput" accept=".stl,.obj" />
                     <label for="fileInput" class="file-input-label">stl obj</label>
                 </div>
-            </div>
+            </div> -->
 
             <!-- 段信息显示 -->
             <div class="section">

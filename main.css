@@ -166,6 +166,17 @@ body {
     transform: translateY(-1px);
 }
 
+.btn-info {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+    color: white;
+    box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+}
+
+.btn-info:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(23, 162, 184, 0.4);
+}
+
 .file-input-wrapper {
     position: relative;
     overflow: hidden;
