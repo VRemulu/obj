@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>4D 视差效果演示</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* 隐藏滚动条 */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #111;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        /* 1. 容器：固定在屏幕上，作为“画框” */
+        .parallax-container {
+            width: 320px;
+            height: 568px; /* 模拟手机屏幕比例 */
+            position: relative;
+            border-radius: 20px;
+            background-color: #333;
+            overflow: hidden; /* 关键：隐藏图层溢出的部分 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            /* 增加一点内边距，让图层有移动空间 */
+            padding: 20px; 
+            box-sizing: border-box;
+        }
+
+        /* 2. 所有图层的基类 */
+        .parallax-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            transition: transform 0.1s ease-out; /* 让移动更平滑 */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* 3. 不同的图层 */
+        /* 图层1: 背景 (移动最慢) */
+        #layer-bg {
+            background-image: url('https://placehold.co/400x700/003366/FFFFFF?text=Background');
+            transform: scale(1.1); /* 放大一点，移动时不会露白边 */
+        }
+        
+        /* 图层2: 人物 (中等速度) */
+        #layer-subject {
+            /* 使用透明PNG占位图 */
+            background-image: url('https://placehold.co/300x500/FF6347/FFFFFF?text=Idol+(PNG)&font=playfair-display');
+            background-size: contain; /* 保持人物完整 */
+            background-repeat: no-repeat;
+            transform: scale(1.1);
+        }
+
+        /* 图层3: 前景 (移动最快) */
+        #layer-fg {
+            /* 使用透明PNG占位图 */
+            background-image: url('https://placehold.co/400x700/FFFFFF/000000?text=Foreground+Effect+(PNG)&font=playfair-display&bg-opacity=0.3');
+            transform: scale(1.1);
+        }
+
+        /* 4. 提示和按钮 */
+        #info-box {
+            position: absolute;
+            z-index: 10;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007aff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="parallax-container">
+        <!-- 图层按Z轴顺序排列：背景在最下，前景在最上 -->
+        <div class="parallax-layer" id="layer-bg"></div>
+        <div class="parallax-layer" id="layer-subject"></div>
+        <div class="parallax-layer" id="layer-fg"></div>
+
+        <!-- 初始提示，请求权限 -->
+        <div id="info-box">
+            <p>请点击按钮以激活 4D 效果</p>
+            <button id="permission-button">激活陀螺仪</button>
+        </div>
+    </div>
+
+    <script>
+        const bgLayer = document.getElementById('layer-bg');
+        const subjectLayer = document.getElementById('layer-subject');
+        const fgLayer = document.getElementById('layer-fg');
+        const infoBox = document.getElementById('info-box');
+        const permissionButton = document.getElementById('permission-button');
+
+        // 定义每个图层的移动幅度（“强度”）
+        const bgStrength = 0.1;       // 背景：移动幅度小
+        const subjectStrength = 0.25; // 人物：移动幅度中
+        const fgStrength = 0.5;       // 前景：移动幅度大
+
+        function handleOrientation(event) {
+            // event.beta:  前后倾斜 (X 轴)
+            // event.gamma: 左右倾斜 (Y 轴)
+            
+            // 我们限制最大倾斜角度，防止移动过大
+            const maxTilt = 25;
+            let tiltX = Math.max(-maxTilt, Math.min(maxTilt, event.beta));
+            let tiltY = Math.max(-maxTilt, Math.min(maxTilt, event.gamma));
+
+            // 根据倾斜角度和强度，计算每个图层的位移
+            // 注意：我们用 gamma (左右) 来控制 X 轴位移，beta (前后) 来控制 Y 轴位移
+            const bgX = -tiltY * bgStrength;
+            const bgY = -tiltX * bgStrength;
+            const subjectX = -tiltY * subjectStrength;
+            const subjectY = -tiltX * subjectStrength;
+            const fgX = -tiltY * fgStrength;
+            const fgY = -tiltX * fgStrength;
+
+            // 应用 CSS Transform 来移动图层
+            // translate3d 会启用硬件加速，更流畅
+            bgLayer.style.transform = `translate3d(${bgX}px, ${bgY}px, 0)`;
+            subjectLayer.style.transform = `translate3d(${subjectX}px, ${subjectY}px, 0)`;
+            fgLayer.style.transform = `translate3d(${fgX}px, ${fgY}px, 0)`;
+        }
+
+        // --- 权限处理 ---
+        // 现在所有浏览器都需要用户明确授权才能访问陀螺仪
+        permissionButton.onclick = () => {
+            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                // iOS 13+
+                DeviceOrientationEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            window.addEventListener('deviceorientation', handleOrientation);
+                            infoBox.style.display = 'none'; // 隐藏提示框
+                        } else {
+                            alert('未授予陀螺仪权限');
+                        }
+                    })
+                    .catch(console.error);
+            } else {
+                // Android 或其他
+                // Android 默认开启，但建议在 https 环境下测试
+                window.addEventListener('deviceorientation', handleOrientation);
+                infoBox.style.display = 'none';
+            }
+        };
+
+    </script>
+</body>
+</html>
